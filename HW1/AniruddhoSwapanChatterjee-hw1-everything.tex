@@ -1,0 +1,1187 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Programming/Coding Assignment
+% LaTeX Template
+%
+% This template has been downloaded from:
+% http://www.latextemplates.com
+%
+% Original author:
+% Ted Pavlic (http://www.tedpavlic.com)
+%
+% Note:
+% The \lipsum[#] commands throughout this template generate dummy text
+% to fill the template out. These commands should all be removed when 
+% writing assignment content.
+%
+% This template uses a Perl script as an example snippet of code, most other
+% languages are also usable. Configure them in the "CODE INCLUSION 
+% CONFIGURATION" section.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass{article}
+
+\usepackage{fancyhdr} % Required for custom headers
+\usepackage{lastpage} % Required to determine the last page for the footer
+\usepackage{extramarks} % Required for headers and footers
+\usepackage[usenames,dvipsnames]{color} % Required for custom colors
+\usepackage{graphicx} % Required to insert images
+\usepackage{listings} % Required for insertion of code
+\usepackage{courier} % Required for the courier font
+\usepackage{lipsum} % Used for inserting dummy 'Lorem ipsum' text into the template
+\usepackage{url}
+\usepackage{amsmath, amssymb} % cases and mathbb fix
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{float}
+\hypersetup{
+    colorlinks,
+    linkcolor={black},
+    citecolor={blue!50!black},
+    urlcolor={blue!80!black}
+}
+\newcommand{\quotes}[1]{``#1''}
+% Margins
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1} % Line spacing
+
+% Set up the header and footer
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName} % Top left header
+\chead{\hmwkClass\ (\hmwkClassInstructor\ \hmwkClassTime) \hmwkTitle} % Top center head
+\rhead{\firstxmark} % Top right header
+\lfoot{\lastxmark} % Bottom left footer
+\cfoot{} % Bottom center footer
+\rfoot{Page\ \thepage\ of\ \protect\pageref{LastPage}} % Bottom right footer
+\renewcommand\headrulewidth{0.4pt} % Size of the header rule
+\renewcommand\footrulewidth{0.4pt} % Size of the footer rule
+
+\setlength\parindent{0pt} % Removes all indentation from paragraphs
+
+%----------------------------------------------------------------------------------------
+%	CODE INCLUSION CONFIGURATION
+%----------------------------------------------------------------------------------------
+
+\definecolor{MyDarkGreen}{rgb}{0.0,0.4,0.0} % This is the color used for comments
+\lstloadlanguages{R} % Load Perl syntax for listings, for a list of other languages supported see: ftp://ftp.tex.ac.uk/tex-archive/macros/latex/contrib/listings/listings.pdf
+\lstset{language=R, % Use Perl in this example
+        frame=single, % Single frame around code
+        basicstyle=\small\ttfamily, % Use small true type font
+        keywordstyle=[1]\color{Blue}\bf, % Perl functions bold and blue
+        keywordstyle=[2]\color{Purple}, % Perl function arguments purple
+        keywordstyle=[3]\color{Blue}\underbar, % Custom functions underlined and blue
+        identifierstyle=, % Nothing special about identifiers                                         
+        commentstyle=\usefont{T1}{pcr}{m}{sl}\color{MyDarkGreen}\small, % Comments small dark green courier font
+        stringstyle=\color{Purple}, % Strings are purple
+        showstringspaces=false, % Don't put marks in string spaces
+        tabsize=5, % 5 spaces per tab
+        %
+        % Put standard Perl functions not included in the default language here
+        morekeywords={},
+        %
+        % Put Perl function parameters here
+        morekeywords=[2]{on, off, interp},
+        %
+        % Put user defined functions here
+        morekeywords=[3]{test},
+       	%
+        morecomment=[l][\color{Blue}]{...}, % Line continuation (...) like blue comment
+        numbers=left, % Line numbers on left
+        firstnumber=1, % Line numbers start with line 1
+        numberstyle=\tiny\color{Blue}, % Line numbers are blue and small
+        stepnumber=5 % Line numbers go in steps of 5
+}
+
+% Creates a new command to include a perl script, the first parameter is the filename of the script (without .pl), the second parameter is the caption
+\newcommand{\rscript}[2]{
+\begin{itemize}
+\item[]\lstinputlisting[caption=#2,label=#2]{#1.R}
+\end{itemize}
+}
+
+%----------------------------------------------------------------------------------------
+%	DOCUMENT STRUCTURE COMMANDS
+%	Skip this unless you know what you're doing
+%----------------------------------------------------------------------------------------
+
+% Header and footer for when a page split occurs within a problem environment
+\newcommand{\enterProblemHeader}[1]{
+\nobreak\extramarks{#1}{#1 continued on next page\ldots}\nobreak
+\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak
+}
+
+% Header and footer for when a page split occurs between problem environments
+\newcommand{\exitProblemHeader}[1]{
+\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak
+\nobreak\extramarks{#1}{}\nobreak
+}
+
+\setcounter{secnumdepth}{0} % Removes default section numbers
+\newcounter{homeworkProblemCounter} % Creates a counter to keep track of the number of problems
+
+\newcommand{\homeworkProblemName}{}
+\newenvironment{homeworkProblem}[1][Problem \arabic{homeworkProblemCounter}]{ % Makes a new environment called homeworkProblem which takes 1 argument (custom name) but the default is "Problem #"
+\stepcounter{homeworkProblemCounter} % Increase counter for number of problems
+\renewcommand{\homeworkProblemName}{#1} % Assign \homeworkProblemName the name of the problem
+\section{\homeworkProblemName} % Make a section in the document with the custom problem count
+\enterProblemHeader{\homeworkProblemName} % Header and footer within the environment
+}{
+\exitProblemHeader{\homeworkProblemName} % Header and footer after the environment
+}
+
+\newcommand{\problemAnswer}[1]{ % Defines the problem answer command with the content as the only argument
+\noindent\framebox[\columnwidth][c]{\begin{minipage}{0.98\columnwidth}#1\end{minipage}} % Makes the box around the problem answer and puts the content inside
+}
+
+\newcommand{\homeworkSectionName}{}
+\newenvironment{homeworkSection}[1]{ % New environment for sections within homework problems, takes 1 argument - the name of the section
+\renewcommand{\homeworkSectionName}{#1} % Assign \homeworkSectionName to the name of the section from the environment argument
+\subsection{\homeworkSectionName} % Make a subsection with the custom name of the subsection
+\enterProblemHeader{\homeworkProblemName\ [\homeworkSectionName]} % Header and footer within the environment
+}{
+\enterProblemHeader{\homeworkProblemName} % Header and footer after the environment
+}
+
+%----------------------------------------------------------------------------------------
+%	NAME AND CLASS SECTION
+%----------------------------------------------------------------------------------------
+
+\newcommand{\hmwkTitle}{Homework\ \#1} % Assignment title
+\newcommand{\hmwkDueDate}{Tuesday, Jan 31,  2023 08:00 p.m.}% Due date
+\newcommand{\hmwkClass}{B565-Data Mining\\} % Course/class
+\newcommand{\hmwkClassTime}{} % Class/lecture time
+\newcommand{\hmwkClassInstructor}{Dr. H. Kurban} % Teacher/lecturer
+\newcommand{\hmwkAuthorName}{Student Name} % Your name
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\title{
+\vspace{2in}
+\textmd{\textbf{\hmwkClass\ \hmwkTitle}}\\
+\normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate}\\
+\vspace{0.1in}\large{\textit{\hmwkClassInstructor\ }}
+\vspace{3in}
+}
+
+\author{\textbf{Aniruddho Swapan Chatterjee}}
+\date{\today} % Insert date here if you want it to appear below your name
+
+%----------------------------------------------------------------------------------------
+
+\begin{document}
+
+
+\maketitle
+
+%----------------------------------------------------------------------------------------
+%	TABLE OF CONTENTS
+%----------------------------------------------------------------------------------------
+
+%\setcounter{tocdepth}{1} % Uncomment this line if you don't want subsections listed in the ToC
+
+\newpage
+
+\newpage
+
+
+
+
+%----------------------------------------------------------------------------------------
+%	PROBLEM 1
+%----------------------------------------------------------------------------------------
+\begin{homeworkProblem}
+
+The following problems have to do with metrics. In each case, prove or disprove the distance
+is a metric ($\mathbb{R}$ is the set of reals, and $\|X\|$ is the size of a finite set $X$.)\\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\textbf{\underline{Ans.}}\\
+If the below three properties are satisfied for any given distance function then it can be proved that the distance is a metric.
+\begin{enumerate}
+    \item Positivity
+    \begin{enumerate}
+        \item Greater than Zero
+        \begin{equation} \label{positivityA}
+        d(x,x) \geq 0 \mbox{ } \forall \mbox{ }  x,y
+        \end{equation}
+        \item Equality
+        \begin{equation} \label{positivityB}
+        d(x,y) = 0  \mbox{ when }  x = y
+        \end{equation}
+    \end{enumerate}
+    \item Symmetry
+    \begin{equation} \label{symmetry}
+    d(x,y) = d(y,x) \mbox{ } \forall \mbox{ }  x,y
+    \end{equation}
+    \item Triangle Property
+    \begin{equation} \label{triangle}
+    d(x,y) + d(y,z) \geq d(x,z) \mbox{ } \forall \mbox{ }  x,y
+    \end{equation}
+\end{enumerate}
+\begin{itemize}
+\item[(a)] Let $X\subset \mathbb{R}^n$ for positive integer $n>0$. Define a distance $d:X\times X \rightarrow \mathbb{R}_{\geq 0}$ as
+\begin{center}
+    $d(x,y) = max \{ |x_i - y_i|\}, \forall i, 1\leq i\leq n$.
+\end{center}
+\textbf{\underline{Ans.}}\\
+Considering equation \ref{positivityA} for the above function and substituting x we get max{0}\\
+d(x,x)=0\\
+\textbf{Therefore equation \ref{positivityA} is satisfied}\\
+Considering equation \ref{positivityB} for the above function where x = y,we get d(x,y)=max{0}\\
+d(x,y)=0\\
+\textbf{Therefore equation \ref{positivityB} is satisfied}\\
+Considering equation \ref{symmetry} for the above function.\\
+Let x=5 and y=8\\
+$d(x,y)=max{|5-8|}$\\
+d(x,y)=3\\
+$d(y,x)=max{|8-5|}$\\
+d(y,x)=3\\
+\textbf{Therefore equation \ref{symmetry} is satisfied}\\
+Considering the equation \ref{triangle} for the above function.\\
+$|x-z|$ can be re-written as $|x-y+y-z|$\\
+Therefore $|x-z| \leq |x-y| + |y-z|$\\
+Taking max on both sides as per the function given above we get\\
+$max|x-z| \leq max|x-y| + max|y-z|$ which is nothing but\\
+$d(x,z) \leq d(x,y)+d(y,z)$\\
+\textbf{Therefore equation \ref{triangle} is satisfied}\\
+\\
+\textbf{Since all three properties are satisfied, the given function is a metric.}
+\item[(b)]  Let $c:\mathbb{R}^{2n} \rightarrow \mathbb{R}_{\geq 0}$ be defined as 
+$$
+c(x,y)=\begin{cases}
+1& \text{if $x\neq y$},\\
+0& \text{o.w.}
+\end{cases}
+$$
+
+Define a distance $d:X\times X \rightarrow  \mathbb{R}_{\geq 0}$ as
+\begin{equation*}
+d(x,y) =  \displaystyle\sum_{i}^{n} \frac{c(x_i,y_i)}{i} , \forall i\ 1\leq i \leq n 
+\end{equation*}
+\textbf{\underline{Ans.}}\\
+Considering equation \ref{positivityA} for the above function and substituting x for y we get c(x,x)=0 since x = y = x\\
+Since c(x,y) = 0 , d(x,x)=0\\
+\textbf{Therefore equation \ref{positivityA} is satisfied}\\
+Considering equation \ref{positivityB} for the above function where x = y,we get c(x,y)=0\\
+Since c(x,y) = 0 , d(x,y)=0\\
+\textbf{Therefore equation \ref{positivityB} is satisfied}\\
+Considering equation \ref{symmetry} for the above function.\\
+$When \mbox{ } x \neq y \mbox{ } c(x,y) = c(y,x) = 1$\\
+$d(x,y) = \displaystyle\sum_{i}^{n} \frac{1}{i}$\\
+$d(y,x) = \displaystyle\sum_{i}^{n} \frac{1}{i}$\\
+\textbf{Therefore equation \ref{symmetry} is satisfied}\\
+Considering the equation \ref{triangle} for the above function.\\
+$When \mbox{ } x \neq y \neq z \mbox{ } c(x,y) = c(y,z) = c(x,z) = 1$\\
+$d(x,z) = \displaystyle\sum_{i}^{n} \frac{1}{i}$\\
+$d(x,y) = \displaystyle\sum_{i}^{n} \frac{1}{i}$\\
+$d(y,z) = \displaystyle\sum_{i}^{n} \frac{1}{i}$\\
+Clearly, adding two similar terms will be greater than the third.\\
+\textbf{Therefore equation \ref{triangle} is satisfied}\\
+\\
+\textbf{Since all three properties are satisfied, the given function is a metric.}
+\item[(c)] Suppose $d_0,\ d_1$ are metrics.
+\begin{itemize}
+    \item[i.]  $d_0 \times d_1$\\
+    \textbf{\underline{Ans.}}\\
+    Let us consider $d_0$ as $d_0(x,y)=max|x-y|$ and $d_1(x,y)=min(1,|y-x|)$\\
+    Using Equation \ref{positivityA} we get, $d_0(x,x) = 0 \mbox{ } and \mbox{ } d_1(x,x) = 0$\\
+    Therefore, $d_0 \times d_1 = 0$\\
+
+    Using Equation \ref{positivityB} if x=y we get, $d_0(x,y) = 0 \mbox{ } and \mbox{ } d_1(x,y) = 0$\\
+    Therefore, $d_0 \times d_1 = 0$\\
+    \textbf{Therefore equation \ref{positivityB} is satisfied}\\
+
+    Using Equation \ref{symmetry}  let us consider x=8 and y =5,\\ $d_0(x,y) = 3 \mbox{ } and \mbox{ } d_1(x,y) = 1$\\
+    Therefore, $d_0 \times d_1 = 3$\\
+    In the same way, $d_0(y,x) = 3 \mbox{ } and \mbox{ } d_1(y,x) = 1$\\
+    \textbf{Therefore equation \ref{symmetry} is satisfied}\\
+
+
+    Using Equation \ref{triangle}  let us consider x=14 and y=15 and z=15.5,\\
+    $d_0(x,z) = 1.5 \mbox{ } d_0(x,y) = 1 and \mbox{ } d_0(y,z) = 0.5$\\
+    $d_1(x,z) = 1 \mbox{ } d_1(x,y) = 1 and \mbox{ } d_1(y,z) = 0.5$\\
+    Therefore, $d_0(x,z) \times d_1(x,z) = 1.5$  \\
+    $d_0(x,y) \times d_1(x,y) + d_0(y,z) \times d_1(y,z)=1.25$\\
+    \textbf{Therefore equation \ref{triangle} is not satisfied}\\
+    \textbf{Therefore $d_0 \times d_1$ is not a metric}\\
+    \item[ii.] $(d_0 + d_1)/(d_0d_1)$\\
+    \textbf{\underline{Ans.}}\\
+    Using Equation \ref{positivityA} we get, $d_0(x,x) = 0 \mbox{ } and \mbox{ } d_1(x,x) = 0$\\
+    Therefore, $(d_0 + d_1)/(d_0d_1) = \frac{0}{0}$ i.e undefined\\
+    \textbf{Therefore $(d_0 + d_1)/(d_0d_1)$ is not a metric}\\
+    
+    \item[iii.]  $max\{d_0,\ d_1\}$\\
+    \textbf{\underline{Ans.}}\\
+    Using Equation \ref{positivityA} we get, $d_0(x,x) = 0 \mbox{ } and \mbox{ } d_1(x,x) = 0$\\
+    Therefore, $max\{d_0,\ d_1\}=0$\\
+
+    Using Equation \ref{positivityB} if x=y we get, $d_0(x,y) = 0 \mbox{ } and \mbox{ } d_1(x,y) = 0$\\
+    Therefore, $max\{d_0,\ d_1\}=0$\\
+    \textbf{Therefore equation \ref{positivityB} is satisfied}\\
+
+    Using Equation \ref{symmetry}  let us consider x=8 and y =5,\\ $d_0(x,y) = 3 \mbox{ } and \mbox{ } d_1(x,y) = 1$\\
+    Therefore, $max\{d_0,\ d_1\}=3$\\
+    In the same way, $d_0(y,x) = 3 \mbox{ } and \mbox{ } d_1(y,x) = 1$\\
+    Therefore, $max\{d_0,\ d_1\}=3$ for both the cases\\
+    \textbf{Therefore equation \ref{symmetry} is satisfied}\\
+
+    Using Equation \ref{triangle}  let us consider x=14 and y=15 and z=15.5,\\
+    $d_0(x,z) = 1.5 \mbox{ } d_0(x,y) = 1 and \mbox{ } d_0(y,z) = 0.5$\\
+    $d_1(x,z) = 1 \mbox{ } d_1(x,y) = 1 and \mbox{ } d_1(y,z) = 0.5$\\
+    Therefore, $max (d_0(x,z),d_1(x,z))=1.5$ and 
+    $max (d_0(x,y)+d_0(y,z),d_1(x,y)+d_1(y,z))=1.5$ \\
+    \textbf{Therefore equation \ref{triangle} is satisfied}\\
+    \textbf{Therefore $max\{d_0,\ d_1\}$ is a metric}\\
+    
+    \item[iv.] Let $X$ be a finite set. Define a distance $d:X\times X \rightarrow \mathbb{R}_{\geq 0}$  as $d(x,y) = \frac{|| x\ \cap \ y||} {||x \ \cup \ y||+1}$\\
+    \textbf{\underline{Ans.}}\\
+    Consider $x={1,2,3,4}$ and $y={5,6}$
+    Using Equation \ref{positivityA} we get, $d(x,x) = 0$\\
+    Using Equation \ref{positivityB} if x=y we get, $d(x,y) = 0$\\
+    \textbf{Therefore equation \ref{positivityB} is satisfied}\\
+
+    Using Equation \ref{symmetry}\\ 
+    $d(x,y) = \frac{6}{7} \mbox{ } and \mbox{ } d(y,x) = \frac{6}{7}$\\
+    \textbf{Therefore equation \ref{symmetry} is satisfied}\\
+
+    Using Equation \ref{triangle} we get and consider $z={1,2,3}$\\
+    $d(x,z) = \frac{1}{8}$ ,$d(x,y) =0$ and $d(y,z) =0$\\
+    \textbf{Therefore equation \ref{triangle} is not satisfied}\\
+
+    \textbf{Therefore given equation is not a metric}\\
+\end{itemize}
+\end{itemize}
+\end{homeworkProblem}
+
+
+
+%----------------------------------------------------------------------------------------
+%	PROBLEM 2
+%----------------------------------------------------------------------------------------
+\begin{homeworkProblem}
+
+\textbf{Curse of Dimensionality:} Generate $m$-dimensional $n$ data points from a uniform distribution with values  between $0$ and $1$. For an arbitrary $m$ value
+
+$$f(m) = \log_{10} \frac{ d_{max}(m) - d_{min}(m)} {
+d_{min}(m)}$$ 
+
+where $d_{max}(m)$ and  $d_{min}(m)$ are  maximum and minimum  distances between any pair of points, respectively. Let $m$ take each value from $\{1, 2, \ldots, 99, 100\}$. Repeat each experiment multiple times to get stable values by averaging the
+quantities over multiple runs for each $m$.  For four different $n$  values, e.g., $n \in \{150, 1500, 15000, 150000\}$, plot 
+$f(m)$.  Use Euclidean as your distance metric. Label and scale each axis properly and discuss your observations over different $n$'s.
+
+\begin{lstlisting}[language=Python]
+# Sample Python Script With Highlighting
+import numpy as np
+import matplotlib.pyplot as plt
+
+def functionFM(minDist,maxDist):
+  x = (maxDist - minDist)/(minDist)
+  fm = np.log10(x)
+  return fm
+
+nValue=150
+trails=10
+
+def probabDist():
+  dist=[]
+  AvgFm=[]
+  finalFm=[]
+  for m in range(1,100):
+    for t in range(1,trails):
+      p=np.random.uniform(low = 0, high = 1, size = m)
+      minDist=0
+      maxDist=0
+      dist=[]
+      for n in range(1, nValue):
+        l1=np.random.uniform(low = 0, high = 1, size = m)
+        dist.append(np.linalg.norm(l1-p))
+      minDist=min(dist)
+      maxDist=max(dist)
+      finalFm.append(functionFM(minDist,maxDist))
+    AvgFm.append(np.average(finalFm))
+  return AvgFm
+
+plt.plot(np.arange(1,100).tolist(),probabDist(),label = "plot line")
+plt.xlabel('m')
+plt.ylabel('f(m)')
+plt.title('Curse of dimensionality')
+plt.legend()
+plt.show()
+
+nValue=1500
+trails=10
+
+plt.plot(np.arange(1,100).tolist(),probabDist(),label = "plot line")
+plt.xlabel('m')
+plt.ylabel('f(m)')
+plt.title('Curse of dimensionality')
+plt.legend()
+plt.show()
+
+nValue=15000
+trails=10
+
+plt.plot(np.arange(1,100).tolist(),probabDist(),label = "plot line")
+plt.xlabel('m')
+plt.ylabel('f(m)')
+plt.title('Curse of dimensionality')
+plt.legend()
+plt.show()
+
+nValue=150000
+trails=10
+
+plt.plot(np.arange(1,100).tolist(),probabDist(),label = "plot line")
+plt.xlabel('m')
+plt.ylabel('f(m)')
+plt.title('Curse of dimensionality')
+plt.legend()
+plt.show()
+\end{lstlisting}
+
+
+\subsection{Discussion of Experiments}
+\textbf{\underline{Ans.}}\\
+As the number of features in a data set increases the graph tends to approach zero quickly as it becomes steeper and steeper. This is the main reason of curse of dimensionality when the number of parameter values in the given space increases exponentially which also leads to consumption of time and resources for computation.
+\subsection{Plot/s}
+Place images here with suitable captions.\\
+\begin{figure}[H]    
+   \caption{N=150 Trails = 10}    
+   \centering    
+   \includegraphics[height = 2in, width = 4in]{Problem 2 n 150.png}    
+\end{figure}
+\begin{figure}[H]    
+   \caption{N=1500 Trails = 10}    
+   \centering    
+   \includegraphics[height = 2in, width = 4in]{Problem 2 n 1500.png}    
+\end{figure}
+\begin{figure}[H]    
+   \caption{N=15000 Trails = 10}    
+   \centering    
+   \includegraphics[height = 2in, width = 4in]{Problem 2 n 15000.png}    
+\end{figure}
+\begin{figure}[H]    
+   \caption{N=150000 Trails = 10}    
+   \centering    
+   \includegraphics[height = 2in, width = 4in]{Problem 2 n 150000.png}   
+\end{figure}
+\end{homeworkProblem}
+
+
+
+%----------------------------------------------------------------------------------------
+%	PROBLEM 3
+%----------------------------------------------------------------------------------------
+
+\begin{homeworkProblem}
+For the following data, give the best taxonomic type (interval, ratio, nominal, ordinal):
+
+\begin{enumerate}
+    \item   A section of highway on a map.\\
+    \textbf{Nominal}
+    \item The value of a stock.\\
+    \textbf{Ratio}
+    \item The weight of a person.\\
+    \textbf{Ratio}
+    \item Marital status.\\
+    \textbf{Nominal}
+    \item Visiting United Airlines (https://www.united.com) the seating is: Economony, Economy plus,
+    and United Business.\\
+    \textbf{Ordinal}
+
+\end{enumerate}
+
+\end{homeworkProblem}
+
+%----------------------------------------------------------------------------------------
+%	PROBLEM 4
+%----------------------------------------------------------------------------------------
+
+\begin{homeworkProblem}
+You are datamining with a column that has physical addresses in some city with the same zipcode.  For example,
+\begin{verbatim}
+
+55 WEST CIR
+2131 South Creek Road
+Apt. #1 Fountain Park
+1114 Rosewood Cir
+1114 Rosewood Ct.
+1114 Rosewood Drive
+
+\end{verbatim}
+
+What structure would you create to mine these?  What questions do you think you should be able to answer? \\
+\textbf{\underline{Ans.}}\\
+We can structure this column into Apartment number, Street Number, Street Name, Zipcode, and city.\\
+In this way we will be able to mine the data based on different attributes and gather useful information such as no of apartments on a particular street, the total number of apartments corresponding to a zipcode, and the total number of apartments in the city.\\
+We can plot these on the graph as well and create better visualization to analyze the data effectively.
+
+
+\end{homeworkProblem}
+
+%----------------------------------------------------------------------------------------
+%	PROBLEM 5
+%----------------------------------------------------------------------------------------
+
+\begin{homeworkProblem}
+For this problem you will be using a data set with total 81 attributes describing every aspect of residential homes of Ames, Iowa. You can download the data from here [\href{https://drive.google.com/file/d/10dwPcbktmUpoqsIPbBllgyXyr1LCY7UM/view?usp=sharing}{link}]. The downloadable file already comes with the corresponding names of the attributes. Also a document describing the data is available here [\href{https://drive.google.com/file/d/12EFNx_jQzAQzo15JcKiyDI_M6nbbOyW7/view?usp=sharing}{link}].
+
+\subsection{Discussion of Data}
+Briefly describe this data set--what is its purpose?  How should it be used? What are the kinds of data it's using?\\
+\textbf{\underline{Ans.}}\\
+The data set basically depicts the various features of a house in a particular area and how those features are affecting the Sales price of the house. The purpose is to predict sales price new house in that area based on the features.\\
+The data is using both categorical as well as continuous variables/attributes such as OverallQuality Rating (1-10) and Number of bath (1-4), Living Area(0-6000 sq ft) and others.
+\subsection{R/Python Code}
+ Using R/Python, show code that answers the following questions:
+\begin{enumerate} 
+\item How many entries are in the data set? Write the R or Python code in the box below.\\
+\textbf{\underline{Ans.}}\\
+There are 1460 records in the data set.
+\begin{lstlisting}[language=Python]
+# Sample Python Script With Highlighting
+import csv
+import pandas as pd
+import matplotlib.pyplot as plt
+from matplotlib.pyplot import figure
+houseData=pd.read_csv('housing_data.csv')
+print(len(houseData))
+\end{lstlisting}
+
+
+\item How many unknown or missing data are in the data set? Write the R or Python code in the box below.
+\textbf{\underline{Ans.}}\\
+There are in total 6965 missing values.
+\begin{lstlisting}[language=Python]
+# Sample Python Script With Highlighting
+#To get column wise number of null values
+houseData.isnull().sum()
+#To get total number of null values
+houseData.isnull().sum().sum()
+\end{lstlisting}
+
+
+\item Find 10 attributes influencing the target attribute \texttt{SalePrice}. Use coherent plotting methods to describe and discuss their relation with \texttt{SalePrice}. Place images of these plots into the document. Write the R or Python code in the box below.\\
+\textbf{\underline{Ans.}}\\
+Below are the 10 attributes influencing SalePrice.\\
+OverallQual\\
+GrLivArea\\
+GarageCars\\
+GarageArea\\
+TotalBsmtSF\\
+1stFlrSF\\
+FullBath\\
+TotRmsAbvGrd\\
+YearBuilt\\
+YearRemodAdd\\
+
+\begin{lstlisting}[language=Python]
+# Sample Python Script With Highlighting
+unstackedCorr=houseData.corr().unstack().sort_values(ascending=False)
+salesPriceCorr=unstackedCorr['SalePrice']
+print(salesPriceCorr[0:11])#11 because Correlation of SalePrice to SalePrice is 1
+
+#We can use Scatter plotting technique to show the relation 
+#between these 10 attributes and SalePrice
+
+#Overall Quality Scatter Plot
+houseData.plot(y='SalePrice', x='OverallQual', kind='scatter')
+#Greater Living Area Scatter Plot
+houseData.plot(y='SalePrice', x='GrLivArea', kind='scatter')
+#Garage Cars Scatter Plot
+houseData.plot( y='SalePrice', x='GarageCars', kind='scatter')
+#Garage Area Scatter Plot#
+houseData.plot(y='SalePrice', x='GarageArea', kind='scatter')
+#Total Basement Square Feet Scatter Plot
+houseData.plot(y='SalePrice', x='TotalBsmtSF', kind='scatter')
+#First Floor Square Feet Scatter Plot
+houseData.plot(y='SalePrice', x='1stFlrSF', kind='scatter')
+#Full Bath Scatter Plot
+houseData.plot( y='SalePrice', x='FullBath', kind='scatter')
+#Total RMS Above Ground Scatter Plot
+houseData.plot(y='SalePrice',x='TotRmsAbvGrd', kind='scatter')
+#Year Built Scatter Plot
+houseData.plot( y='SalePrice', x='YearBuilt', kind='scatter')
+#Year Remod Add Scatter Plot
+houseData.plot( y='SalePrice', x='YearRemodAdd', kind='scatter')
+
+\end{lstlisting}
+
+\subsection{Discussion of Findings}
+\subsection{Plot/s}
+Place images here with suitable captions.\\
+\textbf{\underline{Ans.}}\\
+\begin{enumerate}
+    \item Overall Quality\\
+    \includegraphics[height = 2in, width = 4in]{OverallQual.png}\\
+    It is evident that Overall Quality is the most influential attribute for SalePrice with a correlation value of 0.79.\\
+    As and when the QverallQual value increases the price also increases.\\
+    \item Greater Living Area\\
+    \includegraphics[height = 2in, width = 4in]{GrLiveArea.png}\\
+    SalePrice is also increasing as the GrLivArea increases.\\
+    However, it is most dense in the range of 2000-3000 with SalePrice ranging from 100000 - 300000.\\
+    \item Garage Cars\\
+    \includegraphics[height = 2in, width = 4in]{Garage Cars.png}\\
+    Houses below the range of 20000 do not have Garage Cars.\\
+    It can be inferred that there are very few houses that have Garage Cars above 3.\\
+    \item Garage Area\\
+    \includegraphics[height = 2in, width = 4in]{Garage Area.png}\\
+    Also, Garage Area is not awarded to houses with SalesPrice less than 200000.\\
+    \item Total Basement Square Feet\\
+    \includegraphics[height = 2in, width = 4in]{TotalBsmtSF.png}\\
+    Also, TotalBsmtSF is not awarded to houses with SalesPrice less than 200000.\\
+    \item First Floor Square Feet\\ 
+    \includegraphics[height = 2in, width = 4in]{1stFlrSF.png}\\
+    1stFlrSF increases as SalePrice increases.\\
+    \item Full Bath\\
+    \includegraphics[height = 2in, width = 4in]{FullBath.png}\\
+    Most of the houses have 1-2 full baths with very few houses having 3 and others with no full bath.\\
+    \item Total Rms Above Ground\\
+    \includegraphics[height = 2in, width = 4in]{TotalRmsAbvGrnd.png}\\
+    Total RMS Above Ground is somewhat uniform with some outliers where most of the houses have 4-10 with uniform distribution.\\
+    \item Year Built\\
+    \includegraphics[height = 2in, width = 4in]{Year Built.png}\\
+    Houses with SalePrice more than 200000 were approximately built after 1990.\\
+    \item YearRemodAdd
+    \includegraphics[height = 2in, width = 4in]{YearRemodAdd.png}\\
+    Houses that were built before 1940 were most likely Remodeled between 1950-1990.\\    
+\end{enumerate}
+
+
+\item Make a histogram/bar plot for each of those 10 attributes influencing \texttt{SalePrice} and discuss the distribution of values, \textit{e.g.}, are uniform, skewed, normal of those attributes.  Place images of these histograms into the document.  Show the R/Python code that you used below and discussion below that. 
+
+
+\begin{lstlisting}[language=Python]
+# Sample Python Script With Highlighting
+#Overall Quality Histogram
+
+x1 = houseData.loc[houseData.OverallQual==1, 'SalePrice']
+x2 = houseData.loc[houseData.OverallQual==2, 'SalePrice']
+x3 = houseData.loc[houseData.OverallQual==3, 'SalePrice']
+x4 = houseData.loc[houseData.OverallQual==4, 'SalePrice']
+x5 = houseData.loc[houseData.OverallQual==5, 'SalePrice']
+x6 = houseData.loc[houseData.OverallQual==6, 'SalePrice']
+x7 = houseData.loc[houseData.OverallQual==7, 'SalePrice']
+x8 = houseData.loc[houseData.OverallQual==8, 'SalePrice']
+x9 = houseData.loc[houseData.OverallQual==9, 'SalePrice']
+x10 = houseData.loc[houseData.OverallQual==10, 'SalePrice']
+
+plt.hist(x1,alpha=0.5, bins=50,label='1')
+plt.hist(x2,alpha=0.5, bins=50,label='2')
+plt.hist(x3,alpha=0.5, bins=50,label='3')
+plt.hist(x4,alpha=0.5, bins=50,label='4')
+plt.hist(x5,alpha=0.5, bins=50,label='5')
+plt.hist(x6,alpha=0.5, bins=50,label='6')
+plt.hist(x7,alpha=0.5, bins=50,label='7')
+plt.hist(x8,alpha=0.5, bins=50,label='8')
+plt.hist(x9,alpha=0.5, bins=50,label='9')
+plt.hist(x10,alpha=0.5, bins=50,label='10')
+plt.gca().set(title='Frequency Histogram of Overall Quality'
+,xlabel='Sales Price', ylabel='Frequency')
+plt.legend();
+plt.figure(figsize=(12,8))
+plt.show();
+
+#Greater Living Area Histogram
+
+x1 = houseData.loc[houseData.GrLivArea.between(0,1000,inclusive='both')
+, 'SalePrice']
+x2 = houseData.loc[houseData.GrLivArea.between(1001,2000,inclusive='both')
+, 'SalePrice']
+x3 = houseData.loc[houseData.GrLivArea.between(2001,3000,inclusive='both')
+, 'SalePrice']
+x4 = houseData.loc[houseData.GrLivArea.between(3001,4000,inclusive='both')
+, 'SalePrice']
+x5 = houseData.loc[houseData.GrLivArea.between(4001,5000,inclusive='both')
+, 'SalePrice']
+x6 = houseData.loc[houseData.GrLivArea.between(5000,6000,inclusive='both')
+, 'SalePrice']
+
+plt.hist(x1,alpha=0.5, bins=50,label='0-1000')
+plt.hist(x2,alpha=0.5, bins=50,label='1001-2000')
+plt.hist(x3,alpha=0.5, bins=50,label='2001-3000')
+plt.hist(x4,alpha=0.5, bins=50,label='3001-4000')
+plt.hist(x5,alpha=0.5, bins=50,label='4001-5000')
+plt.hist(x6,alpha=0.5, bins=50,label='5001-6000')
+plt.gca().set(title='Frequency Histogram of Greater Living Area'
+,xlabel='Sales Price', ylabel='Frequency')
+plt.legend(title='Greater Living Area');
+plt.show();
+
+#Garage Cars Histogram
+
+x1 = houseData.loc[houseData.GarageCars==1, 'SalePrice']
+x2 = houseData.loc[houseData.GarageCars==2, 'SalePrice']
+x3 = houseData.loc[houseData.GarageCars==3, 'SalePrice']
+x4 = houseData.loc[houseData.GarageCars==4, 'SalePrice']
+
+plt.hist(x1,alpha=0.5, bins=50, color='r', label='1')
+plt.hist(x2,alpha=0.5, bins=50, color='g', label='2')
+plt.hist(x3,alpha=0.5, bins=50, color='b', label='3')
+plt.hist(x4,alpha=0.5, bins=50, color='magenta', label='4')
+plt.gca().set(title='Frequency Histogram of Garage Cars'
+,xlabel='Sales Price', ylabel='Frequency')
+plt.legend(title='Garage Cars');
+plt.show();
+
+#Garage Area Histogram
+
+x1 = houseData.loc[houseData.GarageArea.between(0,400,inclusive='both')
+, 'SalePrice']
+x2 = houseData.loc[houseData.GarageArea.between(401,800,inclusive='both')
+, 'SalePrice']
+x3 = houseData.loc[houseData.GarageArea.between(801,1200,inclusive='both')
+, 'SalePrice']
+x4 = houseData.loc[houseData.GarageArea.between(1201,1600,inclusive='both')
+, 'SalePrice']
+
+plt.hist(x1,alpha=0.5, bins=50,label='0-400')
+plt.hist(x2,alpha=0.5, bins=50,label='401-800')
+plt.hist(x3,alpha=0.5, bins=50,label='801-1200')
+plt.hist(x4,alpha=0.5, bins=50,label='1201-1600')
+plt.gca().set(title='Frequency Histogram of Garage Area'
+,xlabel='Sales Price', ylabel='Frequency')
+plt.legend(title='Garage Area');
+plt.show();
+
+#Total Basement Square Feet Histogram
+
+x1 = houseData.loc[houseData.TotalBsmtSF.between(0,1000,inclusive='both')
+, 'SalePrice']
+x2 = houseData.loc[houseData.TotalBsmtSF.between(1001,2000,inclusive='both')
+, 'SalePrice']
+x3 = houseData.loc[houseData.TotalBsmtSF.between(2001,3000,inclusive='both')
+, 'SalePrice']
+x4 = houseData.loc[houseData.TotalBsmtSF.between(3001,4000,inclusive='both')
+, 'SalePrice']
+x5 = houseData.loc[houseData.TotalBsmtSF.between(4001,7000,inclusive='both')
+, 'SalePrice']
+plt.hist(x1,alpha=0.5, bins=50,label='0-1000')
+plt.hist(x2,alpha=0.5, bins=50,label='1001-2000')
+plt.hist(x3,alpha=0.5, bins=50,label='2001-3000')
+plt.hist(x4,alpha=0.5, bins=50,label='3001-4000')
+plt.hist(x4,alpha=0.5, bins=50,label='4001-7000')
+plt.gca().set(title='Frequency Histogram of Total Basement Square Feet'
+,xlabel='Sales Price', ylabel='Frequency')
+plt.legend(title='Total Basement Square Feet');
+plt.show();
+
+#1st Floor Square Feet Histogram
+
+x1 = houseData.loc[houseData['1stFlrSF'].between(0,1000,inclusive='both')
+, 'SalePrice']
+x2 = houseData.loc[houseData['1stFlrSF'].between(1001,2000,inclusive='both')
+, 'SalePrice']
+x3 = houseData.loc[houseData['1stFlrSF'].between(2001,3000,inclusive='both')
+, 'SalePrice']
+x4 = houseData.loc[houseData['1stFlrSF'].between(3001,4000,inclusive='both')
+, 'SalePrice']
+x5 = houseData.loc[houseData['1stFlrSF'].between(4001,7000,inclusive='both')
+, 'SalePrice']
+plt.hist(x1,alpha=0.5, bins=50,label='0-1000')
+plt.hist(x2,alpha=0.5, bins=50,label='1001-2000')
+plt.hist(x3,alpha=0.5, bins=50,label='2001-3000')
+plt.hist(x4,alpha=0.5, bins=50,label='3001-4000')
+plt.hist(x4,alpha=0.5, bins=50,label='4001-7000')
+plt.gca().set(title='Frequency Histogram of Total First Floor Square Feet'
+,xlabel='Sales Price', ylabel='Frequency')
+plt.legend(title='Total First Floor Square Feet');
+plt.show();
+
+#Full bath Histogram
+
+x1 = houseData.loc[houseData.FullBath==1, 'SalePrice']
+x2 = houseData.loc[houseData.FullBath==2, 'SalePrice']
+x3 = houseData.loc[houseData.FullBath==3, 'SalePrice']
+x4 = houseData.loc[houseData.FullBath==4, 'SalePrice']
+
+plt.hist(x1,alpha=0.5, bins=50, color='r', label='1')
+plt.hist(x2,alpha=0.5, bins=50, color='g', label='2')
+plt.hist(x3,alpha=0.5, bins=50, color='b', label='3')
+plt.hist(x4,alpha=0.5, bins=50, color='magenta', label='4')
+plt.gca().set(title='Frequency Histogram of Full Bath'
+,xlabel='Sales Price', ylabel='Frequency')
+plt.legend(title='Full Bath');
+plt.show();
+
+#Total RMS Above Ground Histogram
+
+x1 = houseData.loc[houseData.TotRmsAbvGrd.between(0,4,inclusive='both')
+, 'SalePrice']
+x2 = houseData.loc[houseData.TotRmsAbvGrd.between(5,8,inclusive='both')
+, 'SalePrice']
+x3 = houseData.loc[houseData.TotRmsAbvGrd.between(9,14,inclusive='both')
+, 'SalePrice']
+x4 = houseData.loc[houseData.TotRmsAbvGrd.between(14,18,inclusive='both')
+, 'SalePrice']
+
+plt.hist(x1,alpha=0.5, bins=50,label='0-4')
+plt.hist(x2,alpha=0.5, bins=50,label='5-8')
+plt.hist(x3,alpha=0.5, bins=50,label='9-14')
+plt.hist(x4,alpha=0.5, bins=50,label='14-18')
+plt.gca().set(title='Frequency Histogram of Total Rms Above Ground'
+,xlabel='Sales Price', ylabel='Frequency')
+plt.legend(title='Total Rms Above Ground');
+plt.show();
+
+#Year Built Histogram
+
+x1 = houseData.loc[houseData.YearBuilt.between(1800,1850,inclusive='both')
+, 'SalePrice']
+x2 = houseData.loc[houseData.YearBuilt.between(1851,1900,inclusive='both')
+, 'SalePrice']
+x3 = houseData.loc[houseData.YearBuilt.between(1901,1950,inclusive='both')
+, 'SalePrice']
+x4 = houseData.loc[houseData.YearBuilt.between(1951,2000,inclusive='both')
+, 'SalePrice']
+
+plt.hist(x1,alpha=0.5, bins=50,label='1800-1850')
+plt.hist(x2,alpha=0.5, bins=50,label='1851-1900')
+plt.hist(x3,alpha=0.5, bins=50,label='1901-1950')
+plt.hist(x4,alpha=0.5, bins=50,label='1951-2000')
+plt.gca().set(title='Frequency Histogram of Year Built'
+,xlabel='Sales Price', ylabel='Frequency')
+plt.legend(title='Year Built');
+plt.show();
+
+#Year Remod Add Histogram
+
+x1 = houseData.loc[houseData.YearRemodAdd.between(1900,1950,inclusive='both')
+, 'SalePrice']
+x2 = houseData.loc[houseData.YearRemodAdd.between(1951,2000,inclusive='both')
+, 'SalePrice']
+x3 = houseData.loc[houseData.YearRemodAdd.between(2001,2050,inclusive='both')
+, 'SalePrice']
+
+plt.hist(x1,alpha=0.5, bins=50,label='1900-1950')
+plt.hist(x2,alpha=0.5, bins=50,label='1951-2000')
+plt.hist(x3,alpha=0.5, bins=50,label='2001-2050')
+plt.gca().set(title='Frequency Histogram of Year Remod Add'
+,xlabel='Sales Price', ylabel='Frequency')
+plt.legend(title='Year Remod Add');
+plt.show();
+\end{lstlisting}
+
+
+\subsection{Discussion of Attributes}
+\subsection{Histograms/Bar Plots}
+Place images here with suitable captions.\\
+\textbf{\underline{Ans.}}\\
+From the below histograms, it is evident that the housing data is mostly positively skewed for the top 10 attributes that are influencing SalePrice.
+
+\begin{enumerate}
+    \item Overall Quality\\
+    \includegraphics[height = 2in, width = 4in]{OverallQual Hist.png}\\
+    Majority of the frequencies of Overall Quality lie in the range of SalePrice of 100000-300000.\\
+    \item Greater Living Area\\
+    \includegraphics[height = 2in, width = 4in]{GrLiveArea Hist.png}\\
+    Sale Prices of houses in the range 100000-200000 have majority GrLivArea in the range of 1001-2000\\
+    \item Garage Cars\\
+    \includegraphics[height = 2in, width = 4in]{Garage Cars Hist.png}\\
+    Majority of the houses have 2 Garage Cars followed by 1 Garage Car and then 3 Garage Cars\\
+    Also, It can be inferred that there are very few houses that have Garage Cars above 3.\\
+    \item Garage Area\\
+    \includegraphics[height = 2in, width = 4in]{Garage Area Hist.png}\\
+    Majority of the houses have a Garage Area of 401-800 and Sale prices in the range of 100000-300000.\\
+    \item Total Basement Square Feet\\
+    \includegraphics[height = 2in, width = 4in]{TotalBsmtSF Hist.png}\\
+    Majority of Total Basement Square Feet are in the range of 1001-2000 and the Sale price is in the range of 150000-250000.\\
+    \item First Floor Square Feet\\
+    \includegraphics[height = 2in, width = 4in]{1stFlrSF Hist.png}\\
+    Majority of the houses have First Floor Square Feet in the range of 1001-2000.\\
+    \item Full bath\\
+    \includegraphics[height = 2in, width = 4in]{FullBath Hist.png}\\
+    Most of the houses have 1-2 full baths with very few houses having 3 and others with no full baths.\\
+    \item Total Rms Above Ground\\
+    \includegraphics[height = 2in, width = 4in]{TotalRmsAbvGrnd Hist.png}\\
+    Majority of the houses have Total Rms Above Ground in the range 5-8.\\
+    \item Year Built\\
+    \includegraphics[height = 2in, width = 4in]{Year Built Hist.png}\\
+    Majority of the houses have been built in the range 1951-2000\\
+    \item YearRemodAdd\\
+    \includegraphics[height = 2in, width = 4in]{YearRemodAdd Hist.png}\\
+    Majority of the Houses were Remodeled between 1951-2000.\\
+    
+\end{enumerate}
+
+
+
+\end{enumerate} 
+\subsection{Discussion of simply removing tuples}
+Quantify the affect of simply removing the tuples with unknown or missing values.  What is the cost in human capital?\\
+\textbf{\underline{Ans.}}\\
+Simply removing the tuple with unknown or missing value might affect the other attributes which were being used to extract value from the data set.\\
+We need to analyse first if the data is missing at random, if all the values of that column are missing or the data is corrupted.\\
+Replacing with zero, mean or median would be a good alternative.\\
+To begin with, one needs to understand the data at hand and have the skill sets to first import the data set and analyse. This will consume a lot of time and resources.\\
+\end{homeworkProblem}
+
+
+%----------------------------------------------------------------------------------------
+%	PROBLEM 6
+%----------------------------------------------------------------------------------------
+
+\begin{homeworkProblem} 
+
+
+Distinguish between noise and outliers. Be sure to consider the following questions.
+\begin{enumerate}
+    \item Is noise ever interesting or desirable? Outliers?\\
+    \textbf{\underline{Ans.}}\\
+    Noise can be defined as distortions/corruption in the original data. Hence, noise is undesirable while working with data and should be handled in the pre-processing phase. It is also considered to be the primary reason for a model overfitting. Outliers, on the other hand, can be of some interest based on the goal one is trying to achieve. 
+    \item Can noise objects be outliers?\\
+    \textbf{\underline{Ans.}}\\
+    Yes, as mentioned earlier, noise is the distortion/corruption of data and this can happen anywhere in the data.
+    \item Are noise objects always outliers?\\
+    \textbf{\underline{Ans.}}\\
+    No, distortions in data can also occur as normal data and not always necessarily as outliers.
+    \item Are outliers always noise objects?\\
+    \textbf{\underline{Ans.}}\\
+    No, outliers can be legitimate data without any distortions just that its representation is not as per the other values in the dataset.
+    \item Can noise make a typical value into an unusual one, or vice versa?\\
+    \textbf{\underline{Ans.}}\\
+    Yes, introduction or presence of noise can make an impact on quality of data and make it unusual.
+\end{enumerate}
+\end{homeworkProblem}
+
+%----------------------------------------------------------------------------------------
+%	PROBLEM 7
+%----------------------------------------------------------------------------------------
+
+\begin{homeworkProblem} 
+You are given a set of $m$ objects that is divided into $K$ groups, where the $i^{th}$ group is of size $m_{i}$. If the goal is to obtain a sample of size $n < m$, what is the difference between the following sampling schemes? (Assume sampling with replacement.)
+\begin{enumerate}
+    \item We randomly select $n * m_{i}/m$ elements from each group.
+    \item We randomly select $n$ elements from the data set, without regard for the group to which an object belongs.
+\end{enumerate}
+\textbf{\underline{Ans.}}\\
+Selecting randomly from each group refers to as Stratified Sampling technique. On the other hand, selecting random values from the data set refers to as Random Sampling technique.\\
+Random sampling is used to get a generalised idea and analysis of the data set at hand. However, Stratified sampling gives more accurate results since it is first grouped based on some criteria and then selected for further analysis.\\
+More resources are required to mine the whole data set in random sampling as compared to stratified sampling where analysis can be done on the small samples generated.\\
+Random sampling is frequently used on data sets where there is no/less meaningful information(attributes) available and Stratified is used when the attributes are related to each other and information can be extracted.
+\end{homeworkProblem}
+
+%----------------------------------------------------------------------------------------
+%	PROBLEM 8
+%----------------------------------------------------------------------------------------
+
+\begin{homeworkProblem}
+Consider a document-term matrix, where $tf_{ij}$ is the frequency of the $i^{th}$ word (term) in the $j^{th}$ document and $m$ is the number of documents. Consider the variable transformation that is defined by
+$$tf^{'}_{ij} = tf_{ij} * \log\frac{m}{df_{i}},$$
+where $df_{i}$ is the number of documents in which the $i^{th}$ term appears, which is known as the document frequency of the term. This transformation is known as inverse document frequency transformation.
+\begin{enumerate}
+    \item What is the effect of this transformation if a term occurs in one document? In every document?\\
+    \textbf{\underline{Ans.}}\\
+    If a particular term occurs in one document $df_i$ = 1 then the transformation yields $\log m$ times.\\
+    On the other hand, if the term occurs in every document then $df_i$ = m and the transformation yields 0
+    \item What might be the purpose of this transformation?\\
+    \textbf{\underline{Ans.}}\\
+    This kind of transformation is mostly used to identify the terms that are occurring rarely.\\
+    The values of this transformation range from 0 to $\log m$.
+\end{enumerate}
+\end{homeworkProblem}
+
+%----------------------------------------------------------------------------------------
+%	PROBLEM 9
+%----------------------------------------------------------------------------------------
+
+\begin{homeworkProblem}
+This question compares and contrasts some similarity and distance measures.
+\begin{enumerate}
+    \item For binary data, the L1 distance corresponds to the Hamming distance; that is, the number of bits that are different between two binary vectors. The Jaccard similarity is a measure of the similarity between two binary vectors. Compute the Hamming distance and the Jaccard similarity between the following two binary vectors.
+    \begin{itemize}
+        \item $\textbf{x} = 0101010001$
+        \item $\textbf{y} = 0100011000$
+    \end{itemize}
+    \textbf{\underline{Ans.}}\\
+    Hamming Distance = no of bits which is not the same.\\
+    \textbf{Hamming Distance = 3}\\
+    Jaccard Similarity can be given by the following equation\\
+    \begin{equation} \label{jac}
+            Jaccard(x,y) =  \frac{f_{11}}{f_{01}+f_{10}+f_{11}}
+    \end{equation}
+    $Jaccard(x,y) = \frac{2}{5} = 0.4$\\
+    \textbf{Jaccard(x,y) = 0.4}
+    \item Which approach, Jaccard or Hamming distance, is more similar to the Simple Matching Coefficient, and which approach is more similar to the cosine measure? Explain. (Note: The Hamming distance is a distance, while the other three measures are similarities, but don't let this confuse you.)\\
+    \textbf{\underline{Ans.}}\\
+    Jaccard Similarity is more similar to Cosine similarity co-efficient since we neglect the $f_{00}$ in both of them.\\
+    Hamming distance is more similar to Simple Matching Coefficient since we consider the $f_{00}$ in both of them.
+    \item Suppose that you are comparing how similar two organisms of different species are in terms of the number of genes they share. Describe which measure, Hamming or Jaccard, you think would be more appropriate for comparing the genetic makeup of two organisms. Explain. (Note: Assume that each animal is represented as a binary vector, where each attribute is $1$ if a particular gene is present in the organism and $0$ otherwise.)\\
+    \textbf{\underline{Ans.}}\\
+    In order to compare the genes of two organisms it will be better to use Jaccard, according to the equation \ref{jac}, since we are looking for as many attributes where the gene is present and represented by $f_{11}$.\\
+    Hamming distance however focuses more on the $f_{00}$ frequency which corresponds to the genes which are absent.\\
+    \textbf{Hence, Jaccard approach would be better to determine presence of genes}
+    
+    \item If you wanted to compare the genetic makeup of two organisms of the same species, e.g., two human beings, would you use the Hamming distance, the Jaccard
+    coefficient, or a different measure of similarity or distance? Explain. (Note: Two human beings share $> 99.9\%$ of the same genes.)\\
+    \textbf{\underline{Ans.}}\\
+    If it is given that two human beings share $> 99.9\%$ of the same genes, then it would be better to use Hamming distance as a measure to compare the genetic makeup since Hamming will look for those genes which are not the same i.e $< 0.1\%$.\\
+    Hence, our data set will be reduced and we will be able to work on it effectively.
+    
+\end{enumerate}
+\end{homeworkProblem}
+%----------------------------------------------------------------------------------------
+%	PROBLEM 10
+%----------------------------------------------------------------------------------------
+
+\begin{homeworkProblem}
+For the following vectors, $\textbf{x}$ and $\textbf{y}$, calculate the indicated similarity and distance measures. Show detailed calculations/steps.
+\begin{enumerate}
+    \item $\textbf{x} = (1,1,1,1)$, $\textbf{y} = (2,2,2,2)$ cosine, correlation, Euclidean.
+    \item $\textbf{x} = (0,1,0,1)$, $\textbf{y} = (1,0,1,0)$ cosine, correlation, Euclidean, Jaccard.
+    \item $\textbf{x} = (0,-1,0,1)$, $\textbf{y} = (1,0,-1,0)$ cosine, correlation, Euclidean.
+    \item $\textbf{x} = (1,1,0,1,0,1)$, $\textbf{y} = (1,1,1,0,0,1)$ cosine, correlation, Jaccard.
+    \item $\textbf{x} = (2,-1,0,2,0,-3)$, $\textbf{y} = (-1,1,-1,0,0-1)$ cosine, correlation.
+\end{enumerate}
+\end{homeworkProblem}
+\textbf{\underline{Ans.}}\\
+\begin{enumerate}
+    \item $\textbf{x} = (1,1,1,1)$, $\textbf{y} = (2,2,2,2)$.\\
+    \begin{enumerate}
+        \item Cosine\\
+        Cosine similarity can be calculated using the below equation.
+        \begin{equation} \label{cosine}
+            cosine(x,y) =  \frac{x.y}{||x||.||y||}
+        \end{equation}
+        $x.y = 2 \times 1 + 2 \times 1 + 2 \times 1 + 2 \times 1 = 8$\\
+        $||x|| = \sqrt{(1\times1)+(1\times1)+(1\times1)+(1\times1)} = 2$\\
+        $||y|| = \sqrt{(2\times2)+(2\times2)+(2\times2)+(2\times2)} = 4$\\
+        \textbf{Therefore, cosine similarity is 1}
+        \item Correlation.\\
+        Correlation can be calculated using the below equation.
+        \begin{equation} \label{correlation}
+            Corr(x,y) =  \frac{Cov(x,y)}{\sigma_x . \sigma_y}
+        \end{equation}
+        \begin{equation} \label{covariance}
+            Cov(x,y) = \frac{\sum (x-\overline{x})(y-\overline{y})}{N}\\
+        \end{equation}
+        \begin{equation} \label{standardDeviationX}
+            \sigma_x = \sqrt{\frac{\sum (x-\overline{x})^2}{N}}
+        \end{equation}
+        \begin{equation} \label{standardDeviationY}
+            \sigma_y = \sqrt{\frac{\sum (y-\overline{y})^2}{N}}
+        \end{equation}
+        \textbf{where ,}\\
+        $\overline{x}-$ Mean of x\\
+        $\overline{y}-$ Mean of y\\
+        \textbf{In our case,}\\
+        $\overline{x} = 1$ \\
+        $\overline{y} = 2$\\
+        $Cov(x,y) = \frac{(1-1)(2-2)+(1-1)(2-2)+(1-1)(2-2)+(1-1)(2-2)}{4} = 0$\\
+        $\sigma_x = \sqrt{\frac{(1-1)^2+(1-1)^2+(1-1)^2+(1-1)^2}{4}} = 0$\\
+        $\sigma_y = \sqrt{\frac{(2-2)^2+(2-2)^2+(2-2)^2+(2-2)^2}{4}} = 0$\\
+        \textbf{Therefore, correlation is $\frac{0}{0}$ i.e undefined}\\
+        \item Euclidean.\\
+        \begin{equation} \label{euclidean}
+            Euclidean(x,y) = \sqrt{\sum (y-x)^2}
+        \end{equation}
+        $Euclidean(x,y) = \sqrt{(2-1)^2+(2-1)^2+(2-1)^2+(2-1)^2} = 2$\\
+        \textbf{Therefore, Euclidean distance is 2}\\
+    \end{enumerate}
+    \item $\textbf{x} = (0,1,0,1)$, $\textbf{y} = (1,0,1,0)$.\\  
+        \begin{enumerate}
+        \item Cosine\\
+        Using equation \ref{cosine}\\
+        $x.y = 1\times0 + 1\times0 + 1\times0 +  1\times0 = 0$\\
+        $||x|| = \sqrt{(0\times0)+(1\times1)+(0\times0)+(1\times1)} = \sqrt{2}$\\
+        $||y|| = \sqrt{(1\times1)+(0\times0)+(1\times1)+(0\times0)} = \sqrt{2}$\\
+        \textbf{Therefore, cosine similarity is 0}
+        \item Correlation.\\
+        Using equation \ref{correlation},\ref{covariance},\ref{standardDeviationX},\ref{standardDeviationY}\\
+        $\overline{x} = 0.5$ \\
+        $\overline{y} = 0.5$\\
+        $Cov(x,y) = \frac{(0-0.5)(1-0.5)+(1-0.5)(0-0.5)+(0-0.5)(1-0.5)+(1-0.5)(0-0.5)}{4} = -0.25$\\
+        $\sigma_x = \sqrt{\frac{(0-0.5)^2+(1-0.5)^2+(0-0.5)^2+(1-0.5)^2}{4}} = 0.5$\\
+        $\sigma_y = \sqrt{\frac{(1-0.5)^2+(0-0.5)^2+(1-0.5)^2+(0-0.5)^2}{4}} = 0.5$\\
+        \textbf{Therefore, correlation is $\frac{-0.25}{0.5\times0.5} = $  -1}\\
+        \item Euclidean.\\
+        Using equation \ref{euclidean}\\
+        $Euclidean(x,y) = \sqrt{(1-0)^2+(1-0)^2+(1-0)^2+(1-0)^2} = 2$\\
+        \textbf{Therefore, Euclidean distance is 2}\\
+        \item Jaccard.\\
+        \begin{equation} \label{jaccard}
+            Jaccard(x,y) =  \frac{f_{11}}{f_{01}+f_{10}+f_{11}}
+        \end{equation}
+        $Jaccard(x,y) = \frac{0}{4} = 0$\\
+        \textbf{Therefore, Jaccard similarity is 0}\\
+        \end{enumerate}
+        $$$$
+    \item $\textbf{x} = (0,-1,0,1)$, $\textbf{y} = (1,0,-1,0)$.\\  
+        \begin{enumerate}
+        \item Cosine\\
+        Using equation \ref{cosine}\\
+        $x.y = 1\times0 + -1\times0 + -1\times0 +  1\times0 = 0$\\
+        $||x|| = \sqrt{(0\times0)+(-1\times-1)+(0\times0)+(1\times1)} = \sqrt{2}$\\
+        $||y|| = \sqrt{(1\times1)+(0\times0)+(-1\times-1)+(0\times0)} = \sqrt{2}$\\
+        \textbf{Therefore, cosine similarity is 0}
+        \item Correlation.\\
+        Using equation \ref{correlation},\ref{covariance},\ref{standardDeviationX},\ref{standardDeviationY}\\
+        $\overline{x} = 0$ \\
+        $\overline{y} = 0$\\
+        $Cov(x,y) = \frac{(0-0)(1-0)+(-1-0)(0-0)+(0-0)(-1-0)+(1-0)(0-0)}{4} = 0$\\
+        $\sigma_x = \sqrt{\frac{(0-0)^2+(-1-0)^2+(0-0)^2+(1-0)^2}{4}} = 0.5$\\
+        $\sigma_y = \sqrt{\frac{(1-0)^2+(0-0)^2+(-1-0)^2+(0-0)^2}{4}} = 0.5$\\
+        \textbf{Therefore, correlation is $\frac{0}{0.5\times0.5} =$ 0}\\
+        \item Euclidean.\\
+        Using equation \ref{euclidean}\\
+        $Euclidean(x,y) = \sqrt{(1-0)^2+(0+1)^2+(-1-0)^2+(0-1)^2} = 2$\\
+        \textbf{Therefore, Euclidean distance is 2}\\
+        \end{enumerate}
+        $$$$
+    \item $\textbf{x} = (1,1,0,1,0,1)$, $\textbf{y} = (1,1,1,0,0,1)$.\\
+        \begin{enumerate}
+        \item Cosine\\
+        Using equation \ref{cosine}\\
+        $x.y = 1\times1 + 1\times1 + 0\times1 +  1\times0 + 0\times0 +1\times1 = 3$\\
+        $||x|| = \sqrt{(1\times1)+(1\times1)+(0\times0)+(1\times1)+(0\times0)+(1\times1)} = 2$\\
+        $||y|| = \sqrt{(1\times1)+(1\times1)+(1\times1)+(0\times0)+(0\times0)+(1\times1)} = 2$\\
+        \textbf{Therefore, cosine similarity is $\frac{3}{4}$ i.e 0.75}
+        \item Correlation.\\
+        Using equation \ref{correlation},\ref{covariance},\ref{standardDeviationX},\ref{standardDeviationY}\\
+        $\overline{x} = 0.66$ \\
+        $\overline{y} = 0.66$\\
+        $Cov(x,y) = \frac{(1-0.66)(1-0.66)+(1-0.66)(1-0.66)+(0-0.66)(1-0.66)+(1-0.66)(0-0.66)+(0-0.66)(0-0.66)+(1-0.66)(1-0.66)}{6}$\\
+        $Cov(x,y) = \frac{0.33}{6}$\\
+        $\sigma_x = \sqrt{\frac{(1-0.66)^2+(1-0.66)^2+(0-0.66)^2+(1-0.66)^2+(0-0.66)^2+(1-0.66)^2}{6}}$\\
+        $\sigma_x = \sqrt{\frac{1.3068}{6}}$\\
+        $\sigma_y = \sqrt{\frac{(1-0.66)^2+(1-0.66)^2+(1-0.66)^2+(0-0.66)^2+(0-0.66)^2+(1-0.66)^2}{6}}$\\
+        $\sigma_y = \sqrt{\frac{1.3068}{6}}$\\
+        \textbf{Therefore, correlation is $\frac{0.33}{1.3068} =$ 0.25}\\
+        \item Jaccard.\\
+        Using equation \ref{jaccard}\\
+        $Jaccard(x,y) = \sqrt{(1-0)^2+(0+1)^2+(-1-0)^2+(0-1)^2} = 2$\\
+        $Jaccard(x,y) = \frac{3}{5} = 0.6$\\
+        \textbf{Therefore, Jaccard similarity is 0.6}\\
+        \end{enumerate}
+    \item $\textbf{x} = (2,-1,0,2,0,-3)$, $\textbf{y} = (-1,1,-1,0,0,-1)$.\\ 
+        \begin{enumerate}
+        \item Cosine\\
+        Using equation \ref{cosine}\\
+        $x.y = 2\times-1 + -1\times1 + 0\times-1 +  2\times0 + 0\times0 + (-3\times-1) = 0$\\
+        $||x|| = \sqrt{(2\times2)+(-1\times-1)+(0\times0)+(2\times2)+(0\times0)+(-3\times-3)} = \sqrt{18}$\\
+        $||y|| = \sqrt{(-1\times-1)+(1\times1)+(-1\times-1)+(0\times0)+(0\times0)+(-1\times-1)} = 2$\\
+        \textbf{Therefore, cosine similarity is $\frac{0}{2\times\sqrt{18}}$ i.e 0}
+        \item Correlation.\\
+        Using equation \ref{correlation},\ref{covariance},\ref{standardDeviationX},\ref{standardDeviationY}\\
+        $\overline{x} = 0$ \\
+        $\overline{y} = -0.33$\\
+        $Cov(x,y) = \frac{(2-0)(-1+0.33)+(-1-0)(1+0.33)+(0-0)(-1+0.33)+(2-0)(0+0.33)+(0-0)(0+0.33)+(-3-0)(-1+0.33)}{6}$\\
+        $Cov(x,y) = 0$\\
+        $\sigma_x = \sqrt{\frac{(2-0)^2+(-1-0)^2+(0-0)^2+(2-0)^2+(0-0)^2+(-3-0)^2}{6}}$\\
+        $\sigma_x = \sqrt{3}$\\
+        $\sigma_y = \sqrt{\frac{(-1+0.33)^2+(1+0.33)^2+(-1+0.33)^2+(0+0.33)^2+(0+0.33)^2+(-1+0.33)^2}{6}}$\\
+        $\sigma_y = \sqrt{0.55}$\\
+        \textbf{Therefore, correlation is $\frac{0}{\sqrt{3}\times\sqrt{0.55}} =$ 0}\\
+        \end{enumerate}
+\end{enumerate}
+\end{document}
